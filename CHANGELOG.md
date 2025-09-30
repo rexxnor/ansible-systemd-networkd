@@ -16,6 +16,11 @@ for emergencies or non-content releases).
 
 ## [Unreleased]
 
+## [25.9.0] - 2025-09-30
+
+- Added support for `key`, `input_key` and `output_key` options in `tunnel`
+  role.
+
 ## [25.8.0] - 2025-09-09
 
 ### Changed
