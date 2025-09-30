@@ -1,0 +1,16 @@
+{% import 'macros.j2' as macros %}
+
+{% if "match" in vlan -%}
+{% set m=macvlan.match %}
+[Match]
+  {% if "system" in m -%}
+{{ macros.generate_mapped_arguments(match_system_arguments, m.system) }}
+  {% endif %}
+{% endif %}
+
+[NetDev]
+Name={{ macvlan.name }}
+Kind=macvlan
+
+[MACVLAN]
+Mode={{ macvlan.macvlan.mode }}

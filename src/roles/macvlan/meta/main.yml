@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: rexxnor <rexxnor@brief.li>
+  description: Role to manage configuration of 'macvlan' devices in systemd-networkd.
+  license: Apache-2.0
+  issue_tracker_url: https://github.com/rexxnor/ansible-systemd-networkd/issues
+  min_ansible_version: "6.0"
+  platforms:
+    - name: GenericLinux
+  galaxy_tags:
+    - systemd
+    - network

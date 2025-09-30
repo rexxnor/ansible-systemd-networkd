@@ -1,0 +1,10 @@
+---
+- name: manage MACVLAN devices
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/macvlan.yml"
+  loop: "{{ macvlans }}"
+  loop_control:
+    loop_var: macvlan
+    label: "{{ macvlan.name }}"
+
+- name: run handlers if needed
+  ansible.builtin.meta: flush_handlers

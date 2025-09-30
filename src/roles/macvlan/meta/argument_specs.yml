@@ -1,0 +1,81 @@
+---
+argument_specs:
+  main:
+    short_description: Manages systemd-networkd MACVLAN virtual network devices.
+    description:
+      - |
+        This role will create (or update) three items in /etc/systemd/network for
+        each specified MACVLAN:
+        1) A drop-in directory for the underlying network
+        2) A .netdev file for the MACVLAN device
+        3) A .conf file in the drop-in directory connecting the VLAN device
+        to the underlying network
+
+      - |
+        Detailed descriptions of parameters and their behavior can be found in 'man systemd.netdev'.
+
+      - |
+        Sets fact named 'systemd_networkd_vlan_changed' to either true or false to indicate whether
+        any changes were made.
+    options:
+      suppress_reload:
+        description: Suppress the reloading of systemd-networkd if changes are made.
+        type: bool
+        default: false
+      systemd_root:
+        description: Root path of filesystem containing systemd-networkd configuration files.
+        type: str
+        default: ""
+      vlans:
+        description: Attributes of the devices to be managed.
+        type: list
+        elements: dict
+        required: true
+        options:
+          name:
+            description: Name of the MACVLAN network device.
+            type: str
+            required: true
+          macvlan:
+            description: Attributes of the MACVLAN.
+            type: dict
+            options:
+              mode:
+                description: >
+                  The MACVLAN mode to use. The supported options are
+                  "private", "vepa", "bridge", "passthru", and "source".
+                type: string
+                required: true
+              underlying_name:
+                description: The underlying network interface
+                type: str
+                required: true
+          match:
+            description: Matching attributes of the network device.
+            type: dict
+            options:
+              system:
+                description: System-specific attributes to be matched.
+                type: dict
+                options:
+                  architecture:
+                    description: Match system architecture.
+                    type: str
+                  credential:
+                    description: Match service credential.
+                    type: str
+                  firmware:
+                    description: Match system firmware.
+                    type: str
+                  host:
+                    description: Match hostname or machine ID.
+                    type: str
+                  kernel_command_line:
+                    description: Match kernel command line option presence.
+                    type: str
+                  kernel_version:
+                    description: Match kernel version expression.
+                    type: str
+                  virtualization:
+                    description: Match virtualization type.
+                    type: str
